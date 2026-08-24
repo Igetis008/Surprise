@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="description" content="The Birthday Protocol: Interactive 18th Birthday Assessment for Prakhar" />
+  <title>THE BIRTHDAY PROTOCOL // PRAKHAR_18</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,800;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="theme-dark">
+  <!-- Ambient Canvas for Background Particles & Confetti -->
+  <canvas id="ambient-canvas" class="ambient-canvas" aria-hidden="true"></canvas>
+  <div class="scanline-overlay" aria-hidden="true"></div>
+  <div class="vignette-overlay" aria-hidden="true"></div>
+
+  <!-- Top System Header Bar -->
+  <header class="system-header" id="system-header">
+    <div class="system-header__left">
+      <span class="status-indicator" aria-hidden="true"></span>
+      <span class="system-title">SYS_PROTOCOL // PRK-18.0</span>
+    </div>
+    <div class="system-header__center">
+      <button class="system-security-badge prince-trigger" id="easter-prince-badge" title="Security Clearance: Prince Charming (Click for surprise)">
+        <span class="badge-icon">👑</span> CLEARANCE: PRINCE CHARMING
+      </button>
+    </div>
+    <div class="system-header__right">
+      <!-- Music Control -->
+      <button id="music-toggle-btn" class="music-toggle" aria-label="Toggle Background Music" title="Toggle audio track">
+        <span class="music-icon" id="music-icon">♪</span>
+        <span class="music-text">MUSIC</span>
+        <div class="music-bars" id="music-bars" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+      </button>
+      
+      <!-- Restricted Easter Egg Button -->
+      <button id="easter-egg-btn" class="classified-btn" title="System Restricted Switch">
+        <span class="classified-btn__tag">RESTRICTED</span>
+        <span>DO NOT CLICK</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Multi-Stage Container -->
+  <main id="app-container" class="app-container">
+
+    <!-- ========================================== -->
+    <!-- STAGE 1: SYSTEM BOOT                       -->
+    <!-- ========================================== -->
+    <section id="stage-1" class="stage stage--active" data-stage="1" aria-label="System Boot Sequence">
+      <div class="stage__inner boot-container">
+        <div class="terminal-box glass-panel">
+          <div class="terminal-header">
+            <div class="terminal-dots" aria-hidden="true">
+              <span class="dot dot--red"></span>
+              <span class="dot dot--yellow"></span>
+              <span class="dot dot--green"></span>
+            </div>
+            <div class="terminal-title">SYS_BOOT_SEQUENCE.EXE</div>
+            <div class="terminal-badge">LIVE_STREAM</div>
+          </div>
+          
+          <div class="terminal-body" id="boot-terminal-body">
+            <div class="terminal-logs" id="boot-logs" role="status" aria-live="polite">
+              <!-- Boot logs typed in sequentially via JS -->
+            </div>
+            
+            <div class="reveal-container" id="boot-reveal" style="display: none;">
+              <div class="glitch-text" data-text="PRINCE CHARMING HAS ENTERED THE SYSTEM.">
+                PRINCE CHARMING HAS ENTERED THE SYSTEM.
+              </div>
+              <div class="reveal-meta">SEC_AUTH: #PRAKHAR-18-LEVEL-UP</div>
+            </div>
+          </div>
+
+          <div class="terminal-footer">
+            <button id="btn-enter-system" class="btn btn--primary btn--glow" style="display: none;">
+              <span class="btn__icon">⚡</span>
+              <span class="btn__text">[ ENTER ]</span>
+            </button>
+            <button id="btn-skip-boot" class="btn btn--ghost btn--small">
+              Skip Sequence ⏭
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- STAGE 2: SUBJECT PROFILE                   -->
+    <!-- ========================================== -->
+    <section id="stage-2" class="stage" data-stage="2" aria-label="Subject Profile Dossier">
+      <div class="stage__inner profile-container">
+        <div class="dossier-card glass-panel">
+          
+          <!-- Dossier Header -->
+          <div class="dossier-header">
+            <div class="dossier-tag">SUBJECT DOSSIER // DECLASSIFIED RECORD</div>
+            <h1 class="dossier-title">
+              SUBJECT: <span class="highlight-text prince-trigger" title="Subject Name">PRAKHAR</span>
+            </h1>
+            <p class="dossier-subtitle">18 YEARS OF EXISTENCE DETECTED</p>
+            <div class="dossier-stamp">STATUS: UNLOCKED</div>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="stats-grid">
+            <div class="stat-card" data-stat="age">
+              <div class="stat-label">CHRONOLOGICAL AGE</div>
+              <div class="stat-value highlight-gold">18</div>
+              <div class="stat-meta">Level 18 Unlocked (Tutorial completed)</div>
+            </div>
+
+            <div class="stat-card" data-stat="nerd">
+              <div class="stat-label">NERD LEVEL</div>
+              <div class="stat-value highlight-cyan">Lowkey</div>
+              <div class="stat-meta">Thinks he is hiding it. He is not.</div>
+            </div>
+
+            <div class="stat-card" data-stat="smugness">
+              <div class="stat-label">SMUGNESS RATING</div>
+              <div class="stat-value highlight-crimson">Dangerously High</div>
+              <div class="stat-meta">Surpasses safety guidelines by 420%</div>
+            </div>
+
+            <div class="stat-card" data-stat="smile">
+              <div class="stat-label">SIGNATURE SMILE</div>
+              <div class="stat-value highlight-gold">Cocky</div>
+              <div class="stat-meta">Effectiveness on loved ones: 100%</div>
+            </div>
+
+            <div class="stat-card" data-stat="adulthood">
+              <div class="stat-label">ADULTHOOD VALIDATION</div>
+              <div class="stat-value highlight-cream">Technically</div>
+              <div class="stat-meta">Legally an adult. Still forgets where keys are.</div>
+            </div>
+
+            <div class="stat-card prince-card prince-trigger" data-stat="prince" title="Click to inspect royalty">
+              <div class="stat-label">PRINCE CHARMING STATUS</div>
+              <div class="stat-value highlight-rose">Classified 👑</div>
+              <div class="stat-meta">Official title issued by supreme authority</div>
+            </div>
+          </div>
+
+          <!-- Disclaimer Footnote -->
+          <div class="dossier-disclaimer">
+            <span class="disclaimer-icon">⚠️</span>
+            <code>All information has been scientifically verified by absolutely nobody.</code>
+          </div>
+
+          <!-- Action Button -->
+          <div class="dossier-action">
+            <button id="btn-start-quiz" class="btn btn--primary btn--glow btn--large">
+              <span>[ BEGIN ASSESSMENT ]</span>
+              <span class="btn__arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- STAGE 3: THE QUIZ                          -->
+    <!-- ========================================== -->
+    <section id="stage-3" class="stage" data-stage="3" aria-label="Interactive Assessment Quiz">
+      <div class="stage__inner quiz-container">
+        
+        <!-- Quiz Progress Bar & Header -->
+        <div class="quiz-progress-wrapper glass-panel">
+          <div class="quiz-progress-meta">
+            <span class="quiz-step-text" id="quiz-step-text">QUESTION 1 / 4</span>
+            <span class="quiz-security-note" id="quiz-security-note">EVALUATION IN PROGRESS</span>
+          </div>
+          <div class="progress-track" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1">
+            <div class="progress-fill" id="quiz-progress-bar" style="width: 25%;"></div>
+          </div>
+        </div>
+
+        <!-- Dynamic Question Card -->
+        <div class="quiz-card glass-panel" id="quiz-card">
+          <div class="quiz-card__header">
+            <span class="quiz-badge" id="quiz-badge">SECTION 3.1 // CLASSIFICATION</span>
+            <h2 class="quiz-question-title" id="quiz-question-title">
+              Loading assessment parameter...
+            </h2>
+          </div>
+
+          <!-- Quiz Options Grid -->
+          <div class="quiz-options-grid" id="quiz-options-container">
+            <!-- Injected via quiz-logic.js -->
+          </div>
+
+          <!-- Humorous Feedback Dialog -->
+          <div class="quiz-feedback-box" id="quiz-feedback-box" style="display: none;">
+            <div class="feedback-status-line">
+              <span class="feedback-icon" id="feedback-icon">⚡</span>
+              <span class="feedback-code" id="feedback-code">SYSTEM_RESPONSE</span>
+            </div>
+            <p class="feedback-text" id="feedback-text">Processing choice...</p>
+            <div class="feedback-footer">
+              <span class="feedback-auto-advance" id="feedback-auto-advance">Advancing protocol...</span>
+              <button id="btn-feedback-next" class="btn btn--small btn--primary">Continue ➔</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- STAGE 4: THE BIRTHDAY MESSAGE              -->
+    <!-- ========================================== -->
+    <section id="stage-4" class="stage" data-stage="4" aria-label="The Birthday Message">
+      <div class="stage__inner message-container">
+        <div class="letter-card glass-panel" id="letter-card">
+          
+          <div class="letter-header">
+            <div class="letter-status-pill">
+              <span class="pulse-dot" aria-hidden="true"></span> PROTOCOL DECRYPTED // VERIFIED
+            </div>
+            <h1 class="letter-title">BIRTHDAY PROTOCOL COMPLETE</h1>
+            <div class="letter-divider" aria-hidden="true"></div>
+          </div>
+
+          <!-- Exact Requested Birthday Message -->
+          <div class="letter-content" id="letter-content">
+            <p class="letter-para para-1">Yo!! My man's finally an adult...</p>
+            <p class="letter-para para-2">You're always going to be my cute little baby boiii.</p>
+            <p class="letter-para para-3">Loads of love for ya!!</p>
+            <p class="letter-para para-4">I wish you all the happiness in the world — just don't lose that cocky little smile.</p>
+            <p class="letter-para para-5">I can't even imagine falling for a chopped trash teen...</p>
+            <p class="letter-para para-6">and now look at me, bragging about how cool and handsome my munda is.</p>
+            <p class="letter-para para-7 letter-emphasis"><strong>Disgusting. Absolutely embarrassing.</strong></p>
+            <p class="letter-para para-8 letter-closing">Anyway, happy 18th, Prince Charming. ❤️</p>
+          </div>
+
+          <!-- Action Controls -->
+          <div class="letter-actions">
+            <button id="btn-skip-letter-anim" class="btn btn--ghost btn--small">
+              Fast-Forward ⚡
+            </button>
+            <button id="btn-to-gallery" class="btn btn--primary btn--glow btn--large" style="display: none;">
+              <span>[ ACCESS ARCHIVED MEMORIES ]</span>
+              <span class="btn__arrow">➔</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- STAGE 5: ARCHIVED MEMORIES & OUTRO         -->
+    <!-- ========================================== -->
+    <section id="stage-5" class="stage" data-stage="5" aria-label="Archived Memories and Final Screen">
+      <div class="stage__inner gallery-container">
+        
+        <!-- Gallery Header -->
+        <div class="gallery-header glass-panel">
+          <div class="gallery-tag">ARCHIVED MEMORIES FOUND</div>
+          <h2 class="gallery-title">ACCESSING CLASSIFIED FILES...</h2>
+          <p class="gallery-subtitle">Declassified photo dossier of Subject Prakhar</p>
+        </div>
+
+        <!-- Photo Grid Layout: 1 Hero + 3 Secondary Polaroid Cards -->
+        <div class="photos-layout">
+          
+          <!-- Large Hero Photo Slot (FILE_01) -->
+          <div class="photo-hero-slot">
+            <div class="polaroid-card polaroid-card--hero" data-file-id="FILE_01" data-caption="FILE_01 — somehow this idiot became 18" tabindex="0" role="button" aria-label="View FILE_01 in full resolution">
+              <div class="polaroid-inner">
+                <div class="photo-media-wrapper" id="photo-wrapper-1">
+                  <img src="assets/photos/FILE_01.jpg" alt="FILE_01: somehow this idiot became 18" class="polaroid-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                  <div class="photo-placeholder-tile">
+                    <div class="placeholder-badge">HERO DOSSIER</div>
+                    <div class="placeholder-icon">📷</div>
+                    <div class="placeholder-name">FILE_01.jpg</div>
+                    <div class="placeholder-hint">drop FILE_01.jpg in assets/photos/</div>
+                  </div>
+                </div>
+                <div class="polaroid-caption">
+                  <span class="caption-id">FILE_01</span>
+                  <span class="caption-desc">somehow this idiot became 18</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Secondary Photos Sub-Grid -->
+          <div class="photos-sub-grid">
+            
+            <!-- Slot 2 -->
+            <div class="polaroid-card" data-file-id="FILE_02" data-caption="FILE_02 — evidence of the alleged Prince Charming" tabindex="0" role="button" aria-label="View FILE_02">
+              <div class="polaroid-inner">
+                <div class="photo-media-wrapper" id="photo-wrapper-2">
+                  <img src="assets/photos/FILE_02.jpg" alt="FILE_02: evidence of the alleged Prince Charming" class="polaroid-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                  <div class="photo-placeholder-tile">
+                    <div class="placeholder-badge">ARCHIVE_02</div>
+                    <div class="placeholder-icon">👑</div>
+                    <div class="placeholder-name">FILE_02.jpg</div>
+                    <div class="placeholder-hint">drop FILE_02.jpg in assets/photos/</div>
+                  </div>
+                </div>
+                <div class="polaroid-caption">
+                  <span class="caption-id">FILE_02</span>
+                  <span class="caption-desc">evidence of the alleged Prince Charming</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slot 3 -->
+            <div class="polaroid-card" data-file-id="FILE_03" data-caption="FILE_03 — unfortunately handsome" tabindex="0" role="button" aria-label="View FILE_03">
+              <div class="polaroid-inner">
+                <div class="photo-media-wrapper" id="photo-wrapper-3">
+                  <img src="assets/photos/FILE_03.jpg" alt="FILE_03: unfortunately handsome" class="polaroid-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                  <div class="photo-placeholder-tile">
+                    <div class="placeholder-badge">ARCHIVE_03</div>
+                    <div class="placeholder-icon">✨</div>
+                    <div class="placeholder-name">FILE_03.jpg</div>
+                    <div class="placeholder-hint">drop FILE_03.jpg in assets/photos/</div>
+                  </div>
+                </div>
+                <div class="polaroid-caption">
+                  <span class="caption-id">FILE_03</span>
+                  <span class="caption-desc">unfortunately handsome</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slot 4 -->
+            <div class="polaroid-card" data-file-id="FILE_04" data-caption="FILE_04 — the smile in question" tabindex="0" role="button" aria-label="View FILE_04">
+              <div class="polaroid-inner">
+                <div class="photo-media-wrapper" id="photo-wrapper-4">
+                  <img src="assets/photos/FILE_04.jpg" alt="FILE_04: the smile in question" class="polaroid-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                  <div class="photo-placeholder-tile">
+                    <div class="placeholder-badge">ARCHIVE_04</div>
+                    <div class="placeholder-icon">😏</div>
+                    <div class="placeholder-name">FILE_04.jpg</div>
+                    <div class="placeholder-hint">drop FILE_04.jpg in assets/photos/</div>
+                  </div>
+                </div>
+                <div class="polaroid-caption">
+                  <span class="caption-id">FILE_04</span>
+                  <span class="caption-desc">the smile in question</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Interactive preview file-loader tool for live testing -->
+        <div class="gallery-custom-upload glass-panel">
+          <span class="upload-tip">💡 Want to view your custom photos right now? Select images here:</span>
+          <label class="btn btn--ghost btn--small upload-label">
+            <span>Choose Local Photos</span>
+            <input type="file" id="local-photo-input" multiple accept="image/*" style="display: none;" />
+          </label>
+        </div>
+
+        <!-- Closing Statement Banner -->
+        <div class="gallery-conclusion glass-panel">
+          <blockquote class="conclusion-quote">
+            "No further evidence required.<br />
+            He's still my favourite idiot. ❤️"
+          </blockquote>
+        </div>
+
+        <!-- Final Outro Screen Card -->
+        <div class="final-outro-card glass-panel">
+          <div class="outro-stamp">FINAL SYSTEM VERDICT</div>
+          <h2 class="outro-headline">18 looks good on you.</h2>
+          <div class="outro-signature">— Birthday Protocol, 2026</div>
+          
+          <div class="outro-actions">
+            <button id="btn-replay-chaos" class="btn btn--primary btn--glow btn--large">
+              <span class="btn__icon">🔄</span>
+              <span>[ REPLAY THE CHAOS ]</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- MODALS & OVERLAYS                          -->
+  <!-- ========================================== -->
+
+  <!-- Fullscreen Lightbox Modal -->
+  <div id="lightbox-modal" class="lightbox-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+    <div class="lightbox-content">
+      <button id="lightbox-close-btn" class="lightbox-close" aria-label="Close Lightbox">✕</button>
+      <div class="lightbox-media-container" id="lightbox-media-container"></div>
+      <div class="lightbox-caption" id="lightbox-caption">Caption</div>
+    </div>
+  </div>
+
+  <!-- Easter Egg Modal -->
+  <div id="easter-modal" class="easter-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="easter-backdrop" id="easter-backdrop"></div>
+    <div class="easter-card glass-panel" id="easter-card">
+      <div class="easter-header">
+        <span class="easter-warning-icon">⚠️</span>
+        <span class="easter-title" id="easter-title">RESTRICTED DIRECTIVE</span>
+        <button id="easter-close-btn" class="easter-close">✕</button>
+      </div>
+      <div class="easter-body" id="easter-body">
+        <p id="easter-message">Restricted Area Accessed.</p>
+      </div>
+      <div class="easter-footer">
+        <button id="easter-ok-btn" class="btn btn--primary btn--small">Dismiss</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Element -->
+  <audio id="birthday-audio" preload="none">
+    <source src="assets/birthday.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- Application Scripts -->
+  <script src="js/audio-player.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/boot-sequence.js"></script>
+  <script src="js/quiz-logic.js"></script>
+  <script src="js/message-reveal.js"></script>
+  <script src="js/gallery.js"></script>
+  <script src="js/easter-eggs.js"></script>
+  <script src="js/stage-router.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
