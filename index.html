@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <meta name="description" content="The Birthday Protocol: Interactive 18th Birthday Assessment for Prakhar" />
-  <title>THE BIRTHDAY PROTOCOL // PRAKHAR_18</title>
+  <meta name="description" content="Classified Temporal Protocol // Encrypted Transmission" />
+  <title>CLASSIFIED PROTOCOL // ENCRYPTED</title>
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,18 +24,18 @@
   <header class="system-header" id="system-header">
     <div class="system-header__left">
       <span class="status-indicator" aria-hidden="true"></span>
-      <span class="system-title">SYS_PROTOCOL // PRK-18.0</span>
+      <span class="system-title">SYS_PROTOCOL // ENCRYPTED</span>
     </div>
     <div class="system-header__center">
-      <button class="system-security-badge prince-trigger" id="easter-prince-badge" title="Security Clearance: Prince Charming (Click for surprise)">
-        <span class="badge-icon">👑</span> CLEARANCE: PRINCE CHARMING
+      <button class="system-security-badge prince-trigger" id="easter-prince-badge" title="Security Clearance">
+        <span class="badge-icon">👑</span> CLEARANCE: CLASSIFIED
       </button>
     </div>
     <div class="system-header__right">
-      <!-- Music Control -->
-      <button id="music-toggle-btn" class="music-toggle" aria-label="Toggle Background Music" title="Toggle audio track">
+      <!-- Music Control Toggle -->
+      <button id="music-toggle-btn" class="music-toggle" aria-label="Toggle Background Music" title="Akhiyaan - MITRAZ (Click to play/pause)">
         <span class="music-icon" id="music-icon">♪</span>
-        <span class="music-text">MUSIC</span>
+        <span class="music-text">AKHIYAAN</span>
         <div class="music-bars" id="music-bars" aria-hidden="true">
           <span></span><span></span><span></span>
         </div>
@@ -49,13 +49,66 @@
     </div>
   </header>
 
-  <!-- Main Multi-Stage Container -->
+  <!-- ========================================== -->
+  <!-- STAGE 0: MYSTERIOUS COUNTDOWN LOCK SCREEN  -->
+  <!-- ========================================== -->
+  <section id="lock-screen" class="lock-screen" aria-label="Classified Protocol Lock">
+    <div class="lock-container">
+      <div class="lock-card glass-panel">
+        
+        <div class="lock-header">
+          <div class="lock-badge">
+            <span class="lock-pulse-dot"></span> TOP SECRET // QUANTUM LOCK
+          </div>
+          <div class="lock-icon-wrapper">
+            <div class="lock-radar-ring"></div>
+            <div class="lock-icon">✨</div>
+          </div>
+          <h1 class="lock-title">INCOMING TRANSMISSION</h1>
+          <p class="lock-subtitle">
+            A classified surprise sequence is locked inside the system.<br />
+            Decryption key triggers automatically when the countdown reaches zero.
+          </p>
+          <div class="lock-target-date">
+            <span class="target-label">STATUS:</span>
+            <span class="target-value">DECRYPTION IN PROGRESS // PATIENCE REQUIRED ✨</span>
+          </div>
+        </div>
+
+        <!-- Countdown Timer Display Grid -->
+        <div class="countdown-grid" id="countdown-grid">
+          <div class="timer-box">
+            <div class="timer-value" id="timer-days">00</div>
+            <div class="timer-label">DAYS</div>
+          </div>
+          <div class="timer-separator">:</div>
+          <div class="timer-box">
+            <div class="timer-value" id="timer-hours">00</div>
+            <div class="timer-label">HOURS</div>
+          </div>
+          <div class="timer-separator">:</div>
+          <div class="timer-box">
+            <div class="timer-value" id="timer-minutes">00</div>
+            <div class="timer-label">MINUTES</div>
+          </div>
+          <div class="timer-separator">:</div>
+          <div class="timer-box">
+            <div class="timer-value highlight-gold" id="timer-seconds">00</div>
+            <div class="timer-label">SECONDS</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Multi-Stage Container (Stages 1 through 5) -->
   <main id="app-container" class="app-container">
 
     <!-- ========================================== -->
     <!-- STAGE 1: SYSTEM BOOT                       -->
     <!-- ========================================== -->
-    <section id="stage-1" class="stage stage--active" data-stage="1" aria-label="System Boot Sequence">
+    <section id="stage-1" class="stage" data-stage="1" aria-label="System Boot Sequence">
       <div class="stage__inner boot-container">
         <div class="terminal-box glass-panel">
           <div class="terminal-header">
@@ -278,13 +331,7 @@
             <div class="polaroid-card polaroid-card--hero" data-file-id="FILE_01" data-caption="FILE_01 — somehow this idiot became 18" tabindex="0" role="button" aria-label="View FILE_01 in full resolution">
               <div class="polaroid-inner">
                 <div class="photo-media-wrapper" id="photo-wrapper-1">
-                  <img src="assets/photos/FILE_01.jpg" alt="FILE_01: somehow this idiot became 18" class="polaroid-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-                  <div class="photo-placeholder-tile">
-                    <div class="placeholder-badge">HERO DOSSIER</div>
-                    <div class="placeholder-icon">📷</div>
-                    <div class="placeholder-name">FILE_01.jpg</div>
-                    <div class="placeholder-hint">drop FILE_01.jpg in assets/photos/</div>
-                  </div>
+                  <img src="assets/photos/FILE_01.jpg" alt="FILE_01: somehow this idiot became 18" class="polaroid-img" onerror="this.style.display='none';" />
                 </div>
                 <div class="polaroid-caption">
                   <span class="caption-id">FILE_01</span>
@@ -301,13 +348,7 @@
             <div class="polaroid-card" data-file-id="FILE_02" data-caption="FILE_02 — evidence of the alleged Prince Charming" tabindex="0" role="button" aria-label="View FILE_02">
               <div class="polaroid-inner">
                 <div class="photo-media-wrapper" id="photo-wrapper-2">
-                  <img src="assets/photos/FILE_02.jpg" alt="FILE_02: evidence of the alleged Prince Charming" class="polaroid-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-                  <div class="photo-placeholder-tile">
-                    <div class="placeholder-badge">ARCHIVE_02</div>
-                    <div class="placeholder-icon">👑</div>
-                    <div class="placeholder-name">FILE_02.jpg</div>
-                    <div class="placeholder-hint">drop FILE_02.jpg in assets/photos/</div>
-                  </div>
+                  <img src="assets/photos/FILE_02.jpg" alt="FILE_02: evidence of the alleged Prince Charming" class="polaroid-img" onerror="this.style.display='none';" />
                 </div>
                 <div class="polaroid-caption">
                   <span class="caption-id">FILE_02</span>
@@ -320,13 +361,7 @@
             <div class="polaroid-card" data-file-id="FILE_03" data-caption="FILE_03 — unfortunately handsome" tabindex="0" role="button" aria-label="View FILE_03">
               <div class="polaroid-inner">
                 <div class="photo-media-wrapper" id="photo-wrapper-3">
-                  <img src="assets/photos/FILE_03.jpg" alt="FILE_03: unfortunately handsome" class="polaroid-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-                  <div class="photo-placeholder-tile">
-                    <div class="placeholder-badge">ARCHIVE_03</div>
-                    <div class="placeholder-icon">✨</div>
-                    <div class="placeholder-name">FILE_03.jpg</div>
-                    <div class="placeholder-hint">drop FILE_03.jpg in assets/photos/</div>
-                  </div>
+                  <img src="assets/photos/FILE_03.jpg" alt="FILE_03: unfortunately handsome" class="polaroid-img" onerror="this.style.display='none';" />
                 </div>
                 <div class="polaroid-caption">
                   <span class="caption-id">FILE_03</span>
@@ -339,13 +374,7 @@
             <div class="polaroid-card" data-file-id="FILE_04" data-caption="FILE_04 — the smile in question" tabindex="0" role="button" aria-label="View FILE_04">
               <div class="polaroid-inner">
                 <div class="photo-media-wrapper" id="photo-wrapper-4">
-                  <img src="assets/photos/FILE_04.jpg" alt="FILE_04: the smile in question" class="polaroid-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-                  <div class="photo-placeholder-tile">
-                    <div class="placeholder-badge">ARCHIVE_04</div>
-                    <div class="placeholder-icon">😏</div>
-                    <div class="placeholder-name">FILE_04.jpg</div>
-                    <div class="placeholder-hint">drop FILE_04.jpg in assets/photos/</div>
-                  </div>
+                  <img src="assets/photos/FILE_04.jpg" alt="FILE_04: the smile in question" class="polaroid-img" onerror="this.style.display='none';" />
                 </div>
                 <div class="polaroid-caption">
                   <span class="caption-id">FILE_04</span>
@@ -355,15 +384,6 @@
             </div>
 
           </div>
-        </div>
-
-        <!-- Interactive preview file-loader tool for live testing -->
-        <div class="gallery-custom-upload glass-panel">
-          <span class="upload-tip">💡 Want to view your custom photos right now? Select images here:</span>
-          <label class="btn btn--ghost btn--small upload-label">
-            <span>Choose Local Photos</span>
-            <input type="file" id="local-photo-input" multiple accept="image/*" style="display: none;" />
-          </label>
         </div>
 
         <!-- Closing Statement Banner -->
@@ -425,14 +445,17 @@
     </div>
   </div>
 
-  <!-- Audio Element -->
-  <audio id="birthday-audio" preload="none">
+  <!-- Audio Element: MITRAZ - Akhiyaan with autoplay and loop -->
+  <audio id="birthday-audio" preload="auto" loop playsinline>
+    <source src="assets/Music/MITRAZ - Akhiyaan (Official Audio).mp3" type="audio/mpeg" />
     <source src="assets/birthday.mp3" type="audio/mpeg" />
+    <source src="assets/Music/akhiyaan.mp3" type="audio/mpeg" />
   </audio>
 
   <!-- Application Scripts -->
   <script src="js/audio-player.js"></script>
   <script src="js/particles.js"></script>
+  <script src="js/countdown.js"></script>
   <script src="js/boot-sequence.js"></script>
   <script src="js/quiz-logic.js"></script>
   <script src="js/message-reveal.js"></script>

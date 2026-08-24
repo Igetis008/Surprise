@@ -1,118 +1,97 @@
 /**
- * Audio Player with graceful degradation and silent fallback
+ * Audio Player: MITRAZ - Akhiyaan
+ * Bulletproof Play / Pause Toggle & Autoplay on Website Open
  */
 class AudioManager {
   constructor() {
     this.audioElement = document.getElementById('birthday-audio');
     this.toggleButton = document.getElementById('music-toggle-btn');
-    this.musicBars = document.getElementById('music-bars');
-    this.isPlaying = false;
-    this.synthContext = null;
-    this.synthInterval = null;
+    this.gestureHandler = null;
 
     this.init();
   }
 
   init() {
-    if (!this.toggleButton) return;
+    if (!this.audioElement) return;
 
-    this.toggleButton.addEventListener('click', () => this.togglePlayback());
+    this.audioElement.volume = 0.9;
 
-    if (this.audioElement) {
-      this.audioElement.addEventListener('ended', () => {
-        this.setPlayingState(false);
-      });
-      this.audioElement.addEventListener('error', (e) => {
-        // Silent fail as requested - do not crash or show error
-      });
-    }
-  }
+    // Directly bind state to native audio events
+    this.audioElement.addEventListener('play', () => this.updateUI(true));
+    this.audioElement.addEventListener('playing', () => this.updateUI(true));
+    this.audioElement.addEventListener('pause', () => this.updateUI(false));
+    this.audioElement.addEventListener('ended', () => this.updateUI(false));
 
-  async togglePlayback() {
-    if (this.isPlaying) {
-      this.pause();
-    } else {
-      await this.play();
-    }
-  }
-
-  async play() {
-    try {
-      if (this.audioElement && this.audioElement.src) {
-        const playPromise = this.audioElement.play();
-        if (playPromise !== undefined) {
-          await playPromise;
-          this.setPlayingState(true);
-          return;
-        }
-      }
-    } catch (err) {
-      // Audio file missing or blocked by browser policy -> fall back to ambient synthetic chime
-      this.startSyntheticAmbience();
-      this.setPlayingState(true);
-    }
-  }
-
-  pause() {
-    if (this.audioElement) {
-      try { this.audioElement.pause(); } catch(e) {}
-    }
-    this.stopSyntheticAmbience();
-    this.setPlayingState(false);
-  }
-
-  setPlayingState(playing) {
-    this.isPlaying = playing;
+    // Bind Button Click
     if (this.toggleButton) {
-      this.toggleButton.classList.toggle('playing', playing);
-      this.toggleButton.setAttribute('aria-pressed', playing ? 'true' : 'false');
+      this.toggleButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.toggle();
+      });
+    }
+
+    // Attempt direct autoplay
+    this.tryPlay();
+
+    // Attach passive one-time gesture unlock for browser policy, but NEVER trigger on toggle button itself
+    this.gestureHandler = (e) => {
+      if (e.target && (e.target.closest('#music-toggle-btn') || e.target.id === 'music-toggle-btn')) {
+        this.removeGestureListeners();
+        return;
+      }
+      if (this.audioElement && this.audioElement.paused) {
+        this.tryPlay();
+      }
+      this.removeGestureListeners();
+    };
+
+    ['click', 'touchstart', 'keydown'].forEach(evt => {
+      window.addEventListener(evt, this.gestureHandler, { passive: true });
+    });
+  }
+
+  removeGestureListeners() {
+    if (this.gestureHandler) {
+      ['click', 'touchstart', 'keydown'].forEach(evt => {
+        window.removeEventListener(evt, this.gestureHandler, { passive: true });
+      });
+      this.gestureHandler = null;
     }
   }
 
-  // Sweet gentle 8-bit birthday arpeggio chord fallback if mp3 is missing
-  startSyntheticAmbience() {
-    if (this.synthInterval) return;
-    try {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      if (!AudioCtx) return;
-      this.synthContext = new AudioCtx();
-      
-      const notes = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 523.25]; // C Major
-      let step = 0;
-
-      this.synthInterval = setInterval(() => {
-        if (!this.synthContext || this.synthContext.state === 'closed') return;
-        
-        const osc = this.synthContext.createOscillator();
-        const gain = this.synthContext.createGain();
-        
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(notes[step % notes.length], this.synthContext.currentTime);
-        
-        gain.gain.setValueAtTime(0.04, this.synthContext.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, this.synthContext.currentTime + 0.8);
-        
-        osc.connect(gain);
-        gain.connect(this.synthContext.destination);
-        
-        osc.start();
-        osc.stop(this.synthContext.currentTime + 0.8);
-        
-        step++;
-      }, 500);
-    } catch (e) {
-      // Silent pass
+  tryPlay() {
+    if (!this.audioElement) return;
+    const playPromise = this.audioElement.play();
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        this.updateUI(true);
+      }).catch(() => {
+        this.updateUI(false);
+      });
     }
   }
 
-  stopSyntheticAmbience() {
-    if (this.synthInterval) {
-      clearInterval(this.synthInterval);
-      this.synthInterval = null;
+  toggle() {
+    if (!this.audioElement) return;
+    this.removeGestureListeners();
+
+    if (this.audioElement.paused) {
+      this.audioElement.play().then(() => {
+        this.updateUI(true);
+      }).catch(err => {
+        console.warn('Playback error:', err);
+      });
+    } else {
+      this.audioElement.pause();
+      this.updateUI(false);
     }
-    if (this.synthContext) {
-      try { this.synthContext.close(); } catch(e) {}
-      this.synthContext = null;
+  }
+
+  updateUI(isPlaying) {
+    if (this.toggleButton) {
+      this.toggleButton.classList.toggle('playing', isPlaying);
+      this.toggleButton.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
     }
   }
 }

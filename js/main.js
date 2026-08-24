@@ -10,9 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Start Stage 1 Boot Sequence
-  if (window.BootSequenceManager) {
-    window.BootSequenceManager.start();
+  // If already unlocked or bypassed, start boot sequence
+  if (sessionStorage.getItem('prk_unlocked') === 'true' || (window.CountdownLock && window.CountdownLock.isUnlocked)) {
+    if (window.BootSequenceManager) {
+      window.BootSequenceManager.start();
+    }
   }
 
   console.log("THE BIRTHDAY PROTOCOL // PRAKHAR_18 INITIALIZED.");
