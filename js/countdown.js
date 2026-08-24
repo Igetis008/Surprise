@@ -12,7 +12,7 @@ class CountdownManager {
     this.secondsEl = document.getElementById('timer-seconds');
 
     // 12 September 2026 00:00:00 Local / IST
-    this.targetDate = new Date(2026, 7, 12, 0, 0, 0).getTime();
+    this.targetDate = new Date(2026, 8, 12, 0, 0, 0).getTime();
     this.timerInterval = null;
     this.isUnlocked = false;
 
