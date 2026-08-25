@@ -46,14 +46,14 @@ class AudioManager {
       this.removeGestureListeners();
     };
 
-    ['click', 'touchstart', 'keydown'].forEach(evt => {
+    ['click', 'touchstart', 'touchend', 'keydown'].forEach(evt => {
       window.addEventListener(evt, this.gestureHandler, { passive: true });
     });
   }
 
   removeGestureListeners() {
     if (this.gestureHandler) {
-      ['click', 'touchstart', 'keydown'].forEach(evt => {
+      ['click', 'touchstart', 'touchend', 'keydown'].forEach(evt => {
         window.removeEventListener(evt, this.gestureHandler, { passive: true });
       });
       this.gestureHandler = null;
@@ -91,6 +91,7 @@ class AudioManager {
   updateUI(isPlaying) {
     if (this.toggleButton) {
       this.toggleButton.classList.toggle('playing', isPlaying);
+      this.toggleButton.classList.toggle('needs-tap', !isPlaying);
       this.toggleButton.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
     }
   }
