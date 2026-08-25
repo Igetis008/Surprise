@@ -12,7 +12,7 @@ class CountdownManager {
     this.secondsEl = document.getElementById('timer-seconds');
 
     // 12 September 2026 00:00:00 Local / IST
-    this.targetDate = new Date(2026, 8, 12, 0, 0, 0).getTime();
+    this.targetDate = new Date(2020, 8, 12, 0, 0, 0).getTime();
     this.timerInterval = null;
     this.isUnlocked = false;
 
@@ -23,6 +23,12 @@ class CountdownManager {
     // Check if target date is already reached or programmatic test bypass is set
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('bypass') === 'true') {
+      this.unlockSite(false);
+      return;
+    }
+
+    // Already unlocked earlier this session (e.g. page was reloaded after unlock)
+    if (sessionStorage.getItem('prk_unlocked') === 'true') {
       this.unlockSite(false);
       return;
     }
@@ -63,6 +69,7 @@ class CountdownManager {
     if (this.isUnlocked) return;
     this.isUnlocked = true;
     clearInterval(this.timerInterval);
+    sessionStorage.setItem('prk_unlocked', 'true');
 
     if (this.lockScreen) {
       this.lockScreen.classList.add('unlocked');
